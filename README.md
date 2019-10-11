@@ -33,7 +33,7 @@ Application use DevExpress control called MapControl, for using you sghould inst
 To change themes manualy you should comment old and uncomment required theme in App.xaml
 f.e Metro Dark Theme:
 
-'''
+''' csharp
 <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <!-- IG Theme -->
