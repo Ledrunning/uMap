@@ -1,0 +1,70 @@
+﻿<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:dxm="http://schemas.devexpress.com/winfx/2008/xaml/map"
+    xmlns:viewModel="clr-namespace:Arsis.MapUtility.ViewModel"
+    x:Class="Arsis.MapUtility.View.MainWindow"
+    mc:Ignorable="d"
+    WindowStartupLocation="CenterScreen"
+    Background="{StaticResource BackgroundKey}"
+    Title="Arsis Map Utility"
+    MinHeight="450" MinWidth="800"
+    MaxHeight="768" MaxWidth="1024">
+    <Window.DataContext>
+        <viewModel:MainViewModel />
+    </Window.DataContext>
+    <Grid>
+
+        <TabControl>
+            <TabItem Header="{Binding Path=FirstTabItem}">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="593*" />
+                        <ColumnDefinition Width="143*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="421*"/>
+                            <RowDefinition Height="37*"/>
+                        </Grid.RowDefinitions>
+                    </Grid>
+
+                    <dxm:MapControl Grid.Row="0" Grid.Column="0" Margin="0,0,27,0">
+                        <dxm:MapControl.SelectItemsByRegionBehavior>
+                            <dxm:SelectItemsByRegionBehavior />
+                        </dxm:MapControl.SelectItemsByRegionBehavior>
+                        <dxm:MapControl.CacheOptions>
+                            <dxm:CacheOptions Directory="{Binding Path=TilesDirectory}" KeepInterval="01:00:00" />
+                        </dxm:MapControl.CacheOptions>
+                        <dxm:ImageLayer x:Name="baseImageLayer">
+                            <dxm:ImageLayer.DataProvider>
+                                <dxm:OpenStreetMapDataProvider Kind="{Binding Path=SelectedKind}"
+                                                               TileUriTemplate="{Binding Path=OsmServerUri}" />
+                            </dxm:ImageLayer.DataProvider>
+                        </dxm:ImageLayer>
+                    </dxm:MapControl>
+
+                    <ComboBox Grid.Column="1" HorizontalAlignment="Left"
+                              ItemsSource="{Binding OsmMapKind}"
+                              SelectedValue="{Binding SelectedKind}"
+                              Margin="10,10,0,0" VerticalAlignment="Top" Width="120" Height="24" />
+
+                    <Label Content="{Binding CurrentTimeDate}" Foreground="DodgerBlue"
+                           VerticalAlignment="Bottom" Margin="27,0,11,11" Grid.Column="1" />
+                </Grid>
+
+            </TabItem>
+            <TabItem Header="{Binding Path=SecondTabItem}">
+                <Grid>
+                    <dxm:MapControl Name="map" MaxZoomLevel="18">
+                        <dxm:ImageLayer DataProvider="{Binding Path=MapImageLayer}" />
+                    </dxm:MapControl>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
