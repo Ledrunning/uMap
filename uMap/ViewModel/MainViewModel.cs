@@ -4,7 +4,6 @@ using System.Configuration;
 using System.Windows.Data;
 using System.Windows.Threading;
 using DevExpress.Xpf.Map;
-using uMap.Project.MapProviders;
 using uMap.Project.Observer;
 
 namespace uMap.Project.ViewModel
@@ -12,7 +11,6 @@ namespace uMap.Project.ViewModel
     public class MainViewModel : NotificationObject
     {
         private readonly UserNotification notification = new UserNotification();
-        private string cacheDirectory;
 
         private string currentTime;
 
@@ -28,7 +26,7 @@ namespace uMap.Project.ViewModel
             OpenStreetMapKind.PublicTransport,
             OpenStreetMapKind.Transport,
             OpenStreetMapKind.SeaMarks,
-            //OpenStreetMapKind.Basic
+            OpenStreetMapKind.Basic
         };
 
         private OpenStreetMapKind selectedKind;
@@ -36,16 +34,13 @@ namespace uMap.Project.ViewModel
         private string tilesDirectory;
         public DispatcherTimer timer;
 
+        private string url;
+
         public MainViewModel()
         {
             GetCurrentTime();
-            SetDirectory();
-            imageLayer = new CustomMapDataProvider();
             FillComboBox();
         }
-
-        public string FirstTabItem { get; } = "Кеширование карты";
-        public string SecondTabItem { get; } = "Локальная карта";
 
         public CollectionView OsmMapKind { get; private set; }
 
@@ -57,17 +52,6 @@ namespace uMap.Project.ViewModel
                 if (selectedKind == value) return;
                 selectedKind = value;
                 OnPropertyChanged(nameof(SelectedKind));
-            }
-        }
-
-        public string TilesDirectory
-        {
-            get => tilesDirectory;
-            set
-            {
-                cacheDirectory = value;
-
-                OnPropertyChanged(nameof(TilesDirectory));
             }
         }
 
@@ -91,41 +75,22 @@ namespace uMap.Project.ViewModel
             }
         }
 
-        private string url;
-
         public string Url
         {
-            get =>url;
+            get => url;
             set
             {
-
-                    url = value;
-                    OnPropertyChanged(nameof(Url));
-
+                url = value;
+                OnPropertyChanged(nameof(Url));
             }
         }
 
 
-    public string OsmServerUri { get; } = ConfigurationSettings.AppSettings.Get("tileServer");
+        public string OsmServerUri { get; } = ConfigurationSettings.AppSettings.Get("tileServer");
 
         private void FillComboBox()
         {
             OsmMapKind = new CollectionView(ListOfOsmKinds);
-        }
-
-        /// <summary>
-        ///     Метод для установки кеширования в определенную директорию
-        /// </summary>
-        private void SetDirectory()
-        {
-            try
-            {
-                tilesDirectory = ConfigurationSettings.AppSettings.Get("cacheDirectory");
-            }
-            catch
-            {
-                notification.ShowErrorMessage("Ошибка конфигурации или директория не найдена!");
-            }
         }
 
         private void GetCurrentTime()
