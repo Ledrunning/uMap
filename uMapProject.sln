@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29326.143
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uMap", "uMap\uMap.csproj", "{FAF26004-E07E-4749-9F54-7F2DFBFBE7B5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FAF26004-E07E-4749-9F54-7F2DFBFBE7B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAF26004-E07E-4749-9F54-7F2DFBFBE7B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAF26004-E07E-4749-9F54-7F2DFBFBE7B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAF26004-E07E-4749-9F54-7F2DFBFBE7B5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6CC3230C-499F-4531-84CA-A17A82DAC841}
+	EndGlobalSection
+EndGlobal
