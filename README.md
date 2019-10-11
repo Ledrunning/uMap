@@ -1,7 +1,9 @@
 # uMap
 Simple WPF MVVM application to display a world map using Open Street Map provider
 
-App appearance
+App appearance:
+
+
 <img src="https://habrastorage.org/webt/vz/ey/oy/vzeyoyt5qho5yovxhjm0dfyqe9o.png" />
 
 Application use DevExpress control called MapControl, for using you sghould install or download required libraries (version of DevExpress 18 or above):
