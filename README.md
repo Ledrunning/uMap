@@ -70,3 +70,4 @@ f.e Metro Dark Theme:
         </ResourceDictionary>
     </Application.Resources>
 ```
+
