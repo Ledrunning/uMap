@@ -4,7 +4,7 @@ Simple WPF MVVM application to display a world map using Open Street Map provide
 App appearance:
 
 
-<img src="https://habrastorage.org/webt/vz/ey/oy/vzeyoyt5qho5yovxhjm0dfyqe9o.png" />
+![](uilayout.png)
 
 Application use DevExpress control called MapControl, for using you should install or download required libraries (version of DevExpress 18 or above):
 
@@ -33,27 +33,30 @@ Application use DevExpress control called MapControl, for using you should insta
 To change themes manualy you should comment old and uncomment required theme in App.xaml
 f.e Metro Dark Theme:
 
-```xml
-<ResourceDictionary>
+<details> 
+  <summary>Theme settings in Application.Resources</summary>
+  
+  ```xml
+     <Application.Resources>
+        <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <!-- IG Theme -->
-                <!-- <ResourceDictionary Source="Themes/IG/IG.MSControls.Core.Implicit.xaml" /> -->
-                <!-- <ResourceDictionary Source="Themes/IG/IG.MSControls.Toolkit.Implicit.xaml" /> -->
+                <ResourceDictionary Source="Themes/IG/IG.MSControls.Core.Implicit.xaml" />
+                <ResourceDictionary Source="Themes/IG/IG.MSControls.Toolkit.Implicit.xaml" />
 
                 <!-- Metro Theme -->
                 <!--<ResourceDictionary Source="Themes/Metro/Metro.MSControls.Core.Implicit.xaml" />
                 <ResourceDictionary Source="Themes/Metro/Metro.MSControls.Toolkit.Implicit.xaml" /> -->
 
                 <!-- MetroDark Theme -->
-                <ResourceDictionary Source="Themes/MetroDark/MetroDark.MSControls.Core.Implicit.xaml" />
-                <ResourceDictionary Source="Themes/MetroDark/MetroDark.MSControls.Toolkit.Implicit.xaml" /> 
-
+                <!--<ResourceDictionary Source="Themes/MetroDark/MetroDark.MSControls.Core.Implicit.xaml" />
+                <ResourceDictionary Source="Themes/MetroDark/MetroDark.MSControls.Toolkit.Implicit.xaml" /> -->
             </ResourceDictionary.MergedDictionaries>
 
             <!-- <SolidColorBrush x:Key="BackgroundKey" Color="#FFFFFF" /> Color="#FF181818" -->
 
             <!-- Dark Theme -->
-            <SolidColorBrush x:Key="BackgroundKey" Color="#000000" />
+            <SolidColorBrush x:Key="BackgroundKey" Color="#FFFFFF" />
 
             <Style x:Key="HeaderTextBlockStyle" TargetType="TextBlock">
                 <Setter Property="FontSize" Value="22" />
@@ -66,7 +69,8 @@ f.e Metro Dark Theme:
                 <Setter Property="FontFamily" Value="Segoe UI" />
                 <Setter Property="Foreground" Value="#FF00AADE" />
             </Style>
-
         </ResourceDictionary>
-    </Application.Resources>
-```
+        </Application.Resources>
+  ```
+  
+</details>
