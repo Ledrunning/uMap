@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Threading;
 using DevExpress.Xpf.Map;
@@ -10,11 +11,11 @@ namespace uMap.Project.ViewModel
 {
     public class MainViewModel : NotificationObject
     {
-        private readonly UserNotification notification = new UserNotification();
-
-        private string currentTime;
-
-        private MapImageDataProviderBase imageLayer;
+        private const int TimerIntervalInSec = 1;
+        private string _currentTime;
+        private MapImageDataProviderBase _imageLayer;
+        private OpenStreetMapKind _selectedKind;
+        private string _url;
 
         public IList<OpenStreetMapKind> ListOfOsmKinds = new List<OpenStreetMapKind>
         {
@@ -29,12 +30,7 @@ namespace uMap.Project.ViewModel
             OpenStreetMapKind.Basic
         };
 
-        private OpenStreetMapKind selectedKind;
-
-        private string tilesDirectory;
-        public DispatcherTimer timer;
-
-        private string url;
+        public DispatcherTimer Timer;
 
         public MainViewModel()
         {
@@ -46,47 +42,51 @@ namespace uMap.Project.ViewModel
 
         public OpenStreetMapKind SelectedKind
         {
-            get => selectedKind;
+            get => _selectedKind;
             set
             {
-                if (selectedKind == value) return;
-                selectedKind = value;
+                if (_selectedKind == value)
+                {
+                    return;
+                }
+
+                _selectedKind = value;
                 OnPropertyChanged(nameof(SelectedKind));
             }
         }
 
         public MapImageDataProviderBase MapImageLayer
         {
-            get => imageLayer;
+            get => _imageLayer;
             set
             {
-                imageLayer = value;
+                _imageLayer = value;
                 OnPropertyChanged(nameof(MapImageLayer));
             }
         }
 
         public string CurrentTimeDate
         {
-            get => currentTime;
+            get => _currentTime;
             set
             {
-                currentTime = value;
+                _currentTime = value;
                 OnPropertyChanged();
             }
         }
 
         public string Url
         {
-            get => url;
+            get => _url;
             set
             {
-                url = value;
+                _url = value;
                 OnPropertyChanged(nameof(Url));
             }
         }
 
 
-        public string OsmServerUri { get; } = ConfigurationSettings.AppSettings.Get("tileServer");
+        public string OsmServerUri { get; } = ConfigurationManager.AppSettings.Get("tileServer");
 
         private void FillComboBox()
         {
@@ -95,10 +95,12 @@ namespace uMap.Project.ViewModel
 
         private void GetCurrentTime()
         {
-            timer = new DispatcherTimer(DispatcherPriority.Render);
-            timer.Interval = TimeSpan.FromSeconds(1);
-            timer.Tick += (sender, args) => { CurrentTimeDate = DateTime.Now.ToString(); };
-            timer.Start();
+            Timer = new DispatcherTimer(DispatcherPriority.Render)
+            {
+                Interval = TimeSpan.FromSeconds(TimerIntervalInSec)
+            };
+            Timer.Tick += (sender, args) => { CurrentTimeDate = DateTime.Now.ToString(CultureInfo.InvariantCulture); };
+            Timer.Start();
         }
     }
 }
